@@ -8,8 +8,32 @@
 
 const mergeSort = (nums) => {
   // code goes here
+  if (nums.length < 2) return nums;
+
+  const spliceIdx = Math.floor(nums.length / 2);
+  const firstPart = nums.slice(0, spliceIdx);
+  const secondPart = nums.slice(spliceIdx);
+
+  const firstSorted = mergeSort(firstPart);
+  const secondSorted = mergeSort(secondPart);
+
+  return merge(firstSorted, secondSorted);
 };
 
+const merge = (firstArr, secondArr) => {
+  console.log(firstArr, secondArr);
+  const idx = 0;
+  const sortedArr = [];
+  while (firstArr.length && secondArr.length) {
+    if (firstArr[idx] < secondArr[idx]) {
+      sortedArr.push(firstArr.shift());
+    } else {
+      sortedArr.push(secondArr.shift());
+    }
+  }
+  sortedArr.concat(firstArr);
+  sortedArr.concat(secondArr);
+};
 // unit tests
 // do not modify the below code
 test.skip("merge sort", function () {
